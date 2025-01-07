@@ -1,67 +1,52 @@
-var argMoveId, argPlayerMove, argComputerMove, computerMove, playerMove, randomNumber, playerInput, getMoveName, argButtonName, buttonTest, displayResult;
-
-/**
- * Describe this function...
- */
-function buttonClicked(argButtonName) {
+let moveId = 0;
+function buttonClicked(buttonName) {
     clearMessages();
-    console.log(argButtonName + ' został kliknięty');
-    function getMoveName(argMoveId) {
-        console.log('wywołano funkcję getMoveName z argumentem: ' + argMoveId);
-        if (argMoveId == 1) {
+    console.log(buttonName + ' został kliknięty');
+    function getMoveName(moveId) {
+        console.log('wywołano funkcję getMoveName z argumentem: ' + moveId);
+        if (moveId == 1) {
             return 'kamień';
-            printMessage('Nie znam ruchu o id ' + argMoveId + '. Zakładam, że chodziło o "kamień".');
-            return 'kamień';
-        } else if (argMoveId == '2') {
+        } else if (moveId == 2) {
             return 'papier';
-            printMessage('Nie znam ruchu o id ' + argMoveId + '. Zakładam, że chodziło o "papier".');
-            return 'papier';
-        } else if (argMoveId == '3') {
-            return 'nożyce';
-            printMessage('Nie znam ruchu o id ' + argMoveId + '. Zakładam, że chodziło o "nożyce".');
+        } else if (moveId == 3) {
             return 'nożyce';
         } else {
-            return 'nieznany ruch';
-            printMessage('Nie znam ruchu o id ' + argMoveId + '. Zakładam, że chodziło o "nieznany ruch".');
             return 'nieznany ruch';
         }
     }
 
-    /**
-     * Describe this function...
-     */
-    function displayResult(argPlayerMove, argComputerMove) {
-        console.log('wywołano funkcję displayResults z argumentami: ' + argPlayerMove + ', ' + argComputerMove);
-        if (argPlayerMove == 'papier' && argComputerMove == 'kamień') {
-            printMessage('Wygrywasz!');
-        } else if (argPlayerMove == 'kamień' && argComputerMove == 'kamień') {
-            printMessage('Remis!');
-        } else if (argPlayerMove == 'nożyce' && argComputerMove == 'nożyce') {
-            printMessage('Remis!');
-        } else if (argPlayerMove == 'papier' && argComputerMove == 'papier') {
-            printMessage('Remis!');
+
+    function displayResult(playerMove, computerMove) {
+        console.log('wywołano funkcję displayResults z argumentami: ' + playerMove + ', ' + computerMove);
+        if (playerMove === computerMove) {
+            printMessage('REMIS!');
+        } else if (playerMove == 'kamień' && computerMove == 'nożyce') {
+            printMessage('WIN!');
+        } else if (playerMove == 'nożyce' && computerMove == 'papier') {
+            printMessage('WIN!');
+        } else if (playerMove == 'papier' && computerMove == 'kamień') {
+            printMessage('WIN!');
+
         } else {
             printMessage('Przegrywasz :(');
         }
-        printMessage('Zagrałem ' + argComputerMove + ', a Ty ' + argPlayerMove);
+        printMessage('Zagrałem ' + computerMove + ', a Ty ' + playerMove);
     }
-    playerMove = argButtonName;
-    randomNumber = Math.floor(Math.random() * 3 + 1);
+    let playerMove = buttonName;
+    let randomNumber = Math.floor(Math.random() * 3 + 1);
     console.log('wylosowana liczba to: ' + randomNumber);
-    computerMove = getMoveName(randomNumber);
+    let computerMove = getMoveName(randomNumber);
     console.log('ruch komputera to: ' + computerMove);
     displayResult(playerMove, computerMove);
 }
-buttonTest = document.getElementById('button-test');
-buttonTest.addEventListener('click', function () { buttonClicked('Guzik TEST'); });
-
-buttonKamien = document.getElementById('button-kamien');
-buttonKamien.addEventListener('click', function () { buttonClicked('Guzik Kamien'); });
-
-buttonPapier = document.getElementById('button-paier');
-buttonPapier.addEventListener('click', function () { buttonClicked('Guzik Papier'); });
 
 
-buttonNozyce = document.getElementById('button-nożyce');
-buttonNozyce.addEventListener('click', function () { buttonClicked('Guzik Nożyce'); });
+const buttonKamien = document.getElementById('button-rock');
+buttonKamien.addEventListener('click', function () { buttonClicked('kamien'); });
 
+const buttonPapier = document.getElementById('button-paper');
+buttonPapier.addEventListener('click', function () { buttonClicked('papier'); });
+
+
+const buttonNozyce = document.getElementById('button-scissors');
+buttonNozyce.addEventListener('click', function () { buttonClicked('nożyce'); });
